@@ -1,6 +1,6 @@
 pub mod size_module {
-use std::mem::size_of;
-   pub fn print_size() {
+    use std::mem::size_of;
+    pub fn print_size() {
         println!("Data type sizes in Rust:");
 
         println!("bool:        {} bytes", size_of::<bool>());
@@ -21,9 +21,7 @@ use std::mem::size_of;
 
     pub fn get_input(name: String) {
         print!("Your name is {name}.");
-    
-        let name_in_string: String = String::from("Pratik Rout");
-        let name_in_lc: String = name_in_string.to_lowercase();
+        let name_in_lc: String = name.to_lowercase();
         println!("\nMy name in lowercase is {name_in_lc}.");
     }
 }

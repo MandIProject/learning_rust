@@ -1,6 +1,7 @@
-use std::fmt;
 use numbers::number_module;
 use sizes::size_module;
+use std::fmt;
+use std::str::FromStr;
 
 pub mod numbers;
 pub mod sizes;
@@ -94,22 +95,37 @@ fn read_string() -> String {
     name.trim().to_string()
 }
 
+fn number_loop(arr: &Vec<i32>) {
+    for x in arr {
+        print!("{x},");
+    }
+    println!();
+}
+
+fn read_number() -> Result<u8, String> {
+    let input: String = read_string();
+
+    if input.is_empty() {
+        Err("You did not enter any data!".to_string())
+    } else {
+        u8::from_str(&input).or(Err("You have entered an invalid age!".to_string()))
+    }
+}
 fn main() {
-    let arr: [u8;5] = [0;5];
+    let arr: [u8; 5] = [0; 5];
     number_module::number_print(&arr);
     number_module::display_prints();
 
     println!("Enter your name: ");
     let name: String = read_string();
-
     size_module::get_input(name);
     size_module::print_size();
-    
+
     let player_address: Addressoffootballer =
         Addressoffootballer::new("Roman Street".to_string(), "Barcelona".to_string(), 40030);
-    
+
     player_address.displaylayeraddress();
-    
+
     let player_data: Footballer = Footballer::new(
         "Lionel Messi".to_string(),
         "Argentina".to_string(),
@@ -124,4 +140,20 @@ fn main() {
     );
 
     player_data.displayplayerdata();
+
+    let list: Vec<i32> = vec![32, 450, 500, 600, 201];
+    number_loop(&list);
+
+    println!("Please enter your age: ");
+
+    match read_number() {
+        Err(err) => println!("{err}"),
+        Ok(age) => {
+            if age == 0 {
+                println!("Invalid age!");
+            } else {
+                println!("Your age is {}", age);
+            }
+        }
+    }
 }
