@@ -1,5 +1,9 @@
 use std::fmt;
-use std::mem::size_of;
+use numbers::number_module;
+use sizes::size_module;
+
+pub mod numbers;
+pub mod sizes;
 
 // let's rust compiler generate Debug trait for the struct
 #[derive(Debug)]
@@ -8,65 +12,116 @@ struct Footballer {
     country: String,
     goals_scored: u32,
     matches_played: u32,
-    trophies_won: Vec<String>, // To store a list of trophies
+    trophies_won: Vec<String>, // To store a list of
+    address: Addressoffootballer,
+}
+
+#[derive(Debug)]
+struct Addressoffootballer {
+    street: String,
+    city: String,
+    postal_code: u16,
+}
+
+impl Footballer {
+    fn new(
+        name: String,
+        country: String,
+        goals_scored: u32,
+        matches_played: u32,
+        trophies_won: Vec<String>,
+        address: Addressoffootballer,
+    ) -> Footballer {
+        Footballer {
+            name,
+            country,
+            goals_scored,
+            matches_played,
+            trophies_won,
+            address,
+        }
+    }
+
+    fn displayplayerdata(&self) {
+        println!("{}", self);
+    }
+}
+
+impl Addressoffootballer {
+    fn new(street: String, city: String, postal_code: u16) -> Addressoffootballer {
+        Addressoffootballer {
+            street,
+            city,
+            postal_code,
+        }
+    }
+
+    fn displaylayeraddress(&self) {
+        println!("{}", self);
+    }
 }
 
 impl fmt::Display for Footballer {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(
             f,
-            "{} ({}) - Goals: {}, Matches: {}, Trophies: {}",
+            "{} ({}) - Goals: {}, Matches: {}, Trophies: {}, Address: {}",
             self.name,
             self.country,
             self.goals_scored,
             self.matches_played,
-            self.trophies_won.join(", ")
+            self.trophies_won.join(", "),
+            self.address,
         )
     }
 }
 
+impl fmt::Display for Addressoffootballer {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(
+            f,
+            "Street: {}, City: {}, Postal Code: {}",
+            self.street, self.city, self.postal_code
+        )
+    }
+}
+
+fn read_string() -> String {
+    let mut name: String = String::new();
+    std::io::stdin()
+        .read_line(&mut name)
+        .expect("cannot read user input!");
+    name.trim().to_string()
+}
+
 fn main() {
-    let arr: [u8; 5] = [0; 5];
+    let arr: [u8;5] = [0;5];
+    number_module::number_print(&arr);
+    number_module::display_prints();
 
-    println!("{:#?}", arr);
+    println!("Enter your name: ");
+    let name: String = read_string();
 
-    println!("Number: {}", 42);
-    println!("Binary: {:b}, Hex: {:x}, Octal: {:o}", 10, 10, 10);
-
-    // Padding and alignment
-    println!("Right-aligned: {:>10}", "hello"); // Pad with spaces on the left
-    println!("Left-aligned: {:<10}", "hello"); // Pad with spaces on the right
-    println!("Centered:     {:^10}", "hello"); // Pad with spaces on both sides
-
-    let player = Footballer {
-        name: "Lionel Messi".to_string(),
-        country: "Argentina".to_string(),
-        goals_scored: 796,    // Updated goal count
-        matches_played: 1073, // Updated match count
-        trophies_won: vec![
+    size_module::get_input(name);
+    size_module::print_size();
+    
+    let player_address: Addressoffootballer =
+        Addressoffootballer::new("Roman Street".to_string(), "Barcelona".to_string(), 40030);
+    
+    player_address.displaylayeraddress();
+    
+    let player_data: Footballer = Footballer::new(
+        "Lionel Messi".to_string(),
+        "Argentina".to_string(),
+        700,
+        1073,
+        vec![
             "Champions League".to_string(),
             "La Liga".to_string(),
             "Copa del Rey".to_string(),
-            "World Cup".to_string(),
         ],
-    };
+        player_address,
+    );
 
-    println!("{}", player);
-
-    println!("Data type sizes in Rust:");
-
-    println!("bool:        {} bytes", size_of::<bool>());
-    println!("char:        {} bytes", size_of::<char>());
-    println!("i8:          {} bytes", size_of::<i8>());
-    println!("i16:         {} bytes", size_of::<i16>());
-    println!("i32:         {} bytes", size_of::<i32>());
-    println!("i64:         {} bytes", size_of::<i64>());
-    println!("u8:          {} bytes", size_of::<u8>());
-    println!("u16:         {} bytes", size_of::<u16>());
-    println!("u32:         {} bytes", size_of::<u32>());
-    println!("u64:         {} bytes", size_of::<u64>());
-    println!("f32:         {} bytes", size_of::<f32>());
-    println!("f64:         {} bytes", size_of::<f64>());
-    println!("usize:       {} bytes", size_of::<usize>());
-    println!("isize:       {} bytes", size_of::<isize>());
+    player_data.displayplayerdata();
 }
