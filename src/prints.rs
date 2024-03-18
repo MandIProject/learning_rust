@@ -1,4 +1,4 @@
-pub mod size_module {
+pub mod print_module {
     use std::mem::size_of;
     pub fn print_size() {
         println!("Data type sizes in Rust:");
@@ -19,7 +19,7 @@ pub mod size_module {
         println!("isize:       {} bytes", size_of::<isize>());
     }
 
-    pub fn get_input(name: String) {
+    pub fn print_name(name: &String) {
         print!("Your name is {name}.");
         let name_in_lc: String = name.to_lowercase();
         println!("\nMy name in lowercase is {name_in_lc}.");
