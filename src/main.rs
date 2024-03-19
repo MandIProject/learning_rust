@@ -19,27 +19,40 @@ fn main() {
     print_module::print_name(&name);
     print_module::print_size();
 
-    let player_address: player_database::Addressoffootballer =
-        player_database::Addressoffootballer::new(
-            "Roman Street".to_string(),
-            "Barcelona".to_string(),
-            40030,
-        );
-    player_address.displaylayeraddress();
+    match player_database::Footballer::read_player_data() {
+        Ok(player_data) => {
+            player_data.displayplayerdata();
+            println!("Data was read successfully!");
+        }
+        Err(err) => println!("There was some error in reading player data - {}", err),
+    }
 
-    let player_data: player_database::Footballer = player_database::Footballer::new(
-        "Lionel Messi".to_string(),
-        "Argentina".to_string(),
-        700,
-        1073,
-        vec![
-            "Champions League".to_string(),
-            "La Liga".to_string(),
-            "Copa del Rey".to_string(),
-        ],
-        player_address,
-    );
-    player_data.displayplayerdata();
+    // let player_address: player_database::Addressoffootballer =
+    //     player_database::Addressoffootballer::new(
+    //         "Roman Street".to_string(),
+    //         "Barcelona".to_string(),
+    //         40030,
+    //     );
+    // player_address.displaylayeraddress();
+
+    // let player_data: player_database::Footballer = player_database::Footballer::new(
+    //     "Lionel Messi".to_string(),
+    //     "Argentina".to_string(),
+    //     700,
+    //     1073,
+    //     vec![
+    //         "Champions League".to_string(),
+    //         "La Liga".to_string(),
+    //         "Copa del Rey".to_string(),
+    //     ],
+    //     player_address,
+    // );
+    // player_data.displayplayerdata();
+
+    // match player_data.write_player_data() {
+    //     Ok(_) => println!("File created successfully - player_data.txt"),
+    //     Err(err) => println!("There was some error in file creation - {}", err),
+    // }
 
     let list: Vec<i32> = vec![32, 450, 500, 600, 201];
     func_module::number_loop(&list);
