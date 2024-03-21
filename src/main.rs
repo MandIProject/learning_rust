@@ -59,13 +59,19 @@ fn main() {
 
     println!("Please enter your age: ");
     match func_module::read_number() {
-        Err(err) => println!("{err}"),
+        Err(err) => {
+            println!("{err}");
+            panic!("Execution stopped!");
+        }
         Ok(age) => {
             if age == 0 {
-                println!("Invalid age!");
+                panic!("Invalid age entered!");
             } else {
                 println!("Your age is {}", age);
             }
         }
     }
+
+    let (area, circumference) = func_module::circle(5.0);
+    println!("Area: {:.2}, Circumference: {:.2}", area, circumference);
 }
