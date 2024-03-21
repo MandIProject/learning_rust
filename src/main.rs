@@ -2,11 +2,15 @@ use database::player_database;
 use functions::func_module;
 use numbers::number_module;
 use prints::print_module;
+use enums::enums_module;
+use traits_in_rust::traits_in_rust_module;
 
 pub mod database;
 pub mod functions;
 pub mod numbers;
 pub mod prints;
+pub mod enums;
+pub mod traits_in_rust;
 
 fn main() {
     let arr: [u8; 5] = [0; 5];
@@ -74,4 +78,12 @@ fn main() {
 
     let (area, circumference) = func_module::circle(5.0);
     println!("Area: {:.2}, Circumference: {:.2}", area, circumference);
+
+    enums_module::move_body(enums_module::Direction::Right(10));
+
+    let pear_1: traits_in_rust_module::Pear = traits_in_rust_module::Pear {};
+    let apple_1: traits_in_rust_module::Apple = traits_in_rust_module::Apple {};
+
+    traits_in_rust_module::print_sweetness("pear", pear_1);
+    traits_in_rust_module::print_sweetness("apple", apple_1);
 }
