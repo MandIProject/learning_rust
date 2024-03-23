@@ -32,4 +32,18 @@ pub mod func_module {
 
         (area, circumference)
     }
+
+    pub fn reverse_a_string(input: &str) -> String {
+        input.chars().rev().collect()
+    }
+
+    #[cfg(test)]
+    mod tests {
+        use super::*;
+
+        #[test]
+        pub fn test_reverse_string() {
+            assert_eq!(reverse_a_string("Hello World"), "dlroW olleH");
+        }
+    }
 }

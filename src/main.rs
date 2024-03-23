@@ -4,6 +4,7 @@ use numbers::number_module;
 use prints::print_module;
 use enums::enums_module;
 use traits_in_rust::traits_in_rust_module;
+use errors::error_module;
 
 pub mod database;
 pub mod functions;
@@ -11,6 +12,7 @@ pub mod numbers;
 pub mod prints;
 pub mod enums;
 pub mod traits_in_rust;
+pub mod errors;
 
 fn main() {
     let arr: [u8; 5] = [0; 5];
@@ -86,4 +88,16 @@ fn main() {
 
     traits_in_rust_module::print_sweetness("pear", pear_1);
     traits_in_rust_module::print_sweetness("apple", apple_1);
+
+    match error_module::read_from_file("player_data.txt".to_string()) {
+        Err(err) => println!("Error: {}", err),
+        Ok(content) => {
+            println!("Found the file! Contents are: ");
+            println!("{}", content);
+        }
+    }
+    
+    let input: &str = "Hello World";
+    let reverse_string: String = func_module::reverse_a_string(input);
+    println!("Reverse of {} is {}", input, reverse_string);
 }
