@@ -5,6 +5,7 @@ use prints::print_module;
 use enums::enums_module;
 use traits_in_rust::traits_in_rust_module;
 use errors::error_module;
+use rand::prelude::*;
 
 pub mod database;
 pub mod functions;
@@ -100,4 +101,11 @@ fn main() {
     let input: &str = "Hello World";
     let reverse_string: String = func_module::reverse_a_string(input);
     println!("Reverse of {} is {}", input, reverse_string);
+
+    let mut rng:ThreadRng  = rand::thread_rng();
+
+    for _i in 1..10 {
+        let random_number: u8 = rng.gen();
+        println!("Generated: {}", random_number);
+    }
 }
