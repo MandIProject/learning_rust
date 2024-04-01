@@ -1,19 +1,19 @@
 use database::player_database;
+use enums::enums_module;
+use errors::error_module;
 use functions::func_module;
 use numbers::number_module;
 use prints::print_module;
-use enums::enums_module;
-use traits_in_rust::traits_in_rust_module;
-use errors::error_module;
 use rand::prelude::*;
+use traits_in_rust::traits_in_rust_module;
 
 pub mod database;
+pub mod enums;
+pub mod errors;
 pub mod functions;
 pub mod numbers;
 pub mod prints;
-pub mod enums;
 pub mod traits_in_rust;
-pub mod errors;
 
 fn main() {
     let arr: [u8; 5] = [0; 5];
@@ -97,15 +97,20 @@ fn main() {
             println!("{}", content);
         }
     }
-    
+
     let input: &str = "Hello World";
     let reverse_string: String = func_module::reverse_a_string(input);
     println!("Reverse of {} is {}", input, reverse_string);
 
-    let mut rng:ThreadRng  = rand::thread_rng();
+    let mut rng: ThreadRng = rand::thread_rng();
 
     for _i in 1..10 {
         let random_number: u8 = rng.gen();
         println!("Generated: {}", random_number);
     }
+
+    let circle: traits_in_rust_module::Circle = traits_in_rust_module::Circle { radius: 10.0 };
+    let sqaure: traits_in_rust_module::Square = traits_in_rust_module::Square { side: 4.0 };
+    traits_in_rust_module::print_area(circle);
+    traits_in_rust_module::print_area(sqaure);
 }
